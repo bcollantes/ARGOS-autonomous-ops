@@ -96,14 +96,14 @@ ARGOS-autonomous-ops
 │
 └── src/
 └── argos/
-├── init.py
-├── main.py
-├── detector.py
-├── decision_engine.py
-├── action_engine.py
-├── verification.py
-├── audit.py
-└── models.py
+│ └──  init.py
+│ └── main.py
+│ └── detector.py
+│ └── decision_engine.py
+│ └── action_engine.py
+│ └── verification.py
+│ └── audit.py
+│ └── models.py
 ```
 
 The initial implementation is written in **Python** and focuses on simplicity and experimentation.
