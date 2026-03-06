@@ -1,0 +1,6 @@
+[project]
+name = "argos-autonomous-ops"
+version = "0.1.0"
+description = "Experimental framework for autonomous operational remediation"
+authors = [{name = "Baltasar Collantes"}]
+requires-python = ">=3.9"

@@ -1,0 +1,9 @@
+rules:
+
+  service_down:
+    action: restart_service
+    verify: http_check
+
+  port_blocked:
+    action: reset_interface
+    verify: ping_check
