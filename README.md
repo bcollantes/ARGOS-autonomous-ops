@@ -11,6 +11,20 @@ ARGOS is designed as part of the **AEGIS ecosystem**, where:
 - **ARGOS** performs autonomous operational remediation
 
 ---
+## Architecture Overview
+
+ARGOS implements a **closed-loop operational model** for autonomous remediation.
+
+
+The system processes operational events and applies corrective actions automatically while maintaining auditability.
+
+Core components:
+
+- **Detector** – collects and normalizes operational events
+- **Decision Engine** – determines remediation actions based on rules
+- **Action Engine** – executes corrective actions
+- **Verification** – validates system recovery
+- **Audit Log** – records operational decisions and results
 
 ## Core Concept
 
@@ -35,6 +49,7 @@ Verification
 │
 ▼
 Audit Log
+
 
 
 This model allows ARGOS to respond automatically to operational incidents such as:
@@ -96,7 +111,7 @@ ARGOS-autonomous-ops
 │
 └── src/
 └── argos/
-│ └──  init.py
+│ └── init.py
 │ └── main.py
 │ └── detector.py
 │ └── decision_engine.py
@@ -115,15 +130,19 @@ The initial implementation is written in **Python** and focuses on simplicity an
 ARGOS is part of the **AEGIS Architecture Ecosystem**. 
 https://aegis-identityfabric.com/ 
 
-Related projects:
+## Ecosystem
 
-• **AEGIS Identity Fabric**  
-Identity Control Plane for hybrid and multi-cloud governance  
-https://github.com/bcollantes/AEGIS-identityfabric
+ARGOS is part of the **AEGIS Architecture Ecosystem**.
 
-• **DAEDALUS – LLD Automation**  
-Automated generation of low-level infrastructure design  
-(coming soon)
+| Project | Role |
+|-------|------|
+| AEGIS | Identity Control Plane |
+| ARGOS | Autonomous Operations |
+| DAEDALUS | Infrastructure Architecture Automation |
+
+Related repository:
+
+• https://github.com/bcollantes/AEGIS-identityfabric
 
 ---
 
@@ -138,3 +157,18 @@ This research is aligned with emerging concepts such as:
 - Autonomous systems
 - Zero Trust operational governance
 
+## Project Status
+
+ARGOS is currently in **experimental stage (v0.1)**.
+
+Current goals:
+
+- implement a minimal autonomous remediation loop
+- integrate rule-based decision engine
+- validate operational verification mechanisms
+
+Future exploration includes:
+
+- Prometheus / Alertmanager integration
+- AI-assisted decision support
+- integration with AEGIS Identity Fabric
