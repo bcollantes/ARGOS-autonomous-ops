@@ -33,6 +33,7 @@ Detect → Decide → Act → Verify
 
 Typical flow:
 
+```text
 Event / Alert
 │
 ▼
@@ -49,8 +50,7 @@ Verification
 │
 ▼
 Audit Log
-
-
+```
 
 This model allows ARGOS to respond automatically to operational incidents such as:
 
