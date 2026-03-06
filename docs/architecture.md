@@ -1,8 +1,53 @@
 # ARGOS Architecture
+## System Architecture
 
+ARGOS follows a layered architecture that enables autonomous remediation
+through a closed-loop operational model.
+
+```text
+┌──────────────────────────────────────────────┐
+│                Event Sources                  │
+│                                              │
+│  Prometheus Alerts  │  Logs  │  JSON Events  │
+└───────────────────────────┬──────────────────┘
+                            │
+                            ▼
+┌──────────────────────────────────────────────┐
+│              ARGOS Core Engine               │
+│                                              │
+│  Detector → Decision Engine → Action Engine  │
+│                                              │
+│  - Event normalization                       │
+│  - Rule evaluation                           │
+│  - Action selection                          │
+└───────────────────────────┬──────────────────┘
+                            │
+                            ▼
+┌──────────────────────────────────────────────┐
+│               Execution Layer                │
+│                                              │
+│   Shell Scripts  │  APIs  │  Automation      │
+│                                              │
+│   restart_service.sh                         │
+│   reset_interface.sh                         │
+└───────────────────────────┬──────────────────┘
+                            │
+                            ▼
+┌──────────────────────────────────────────────┐
+│           Verification & Audit               │
+│                                              │
+│   Health Checks  │  Service Status           │
+│                                              │
+│   Incident Log / Operational Trace           │
+└──────────────────────────────────────────────┘
+```
+
+### Closed-Loop Operational Model
+
+ARGOS implements a simple autonomous remediation loop:
 ARGOS implements a **closed-loop autonomous remediation model** for operational incidents.
 
-## High-Level Flow
+### High-Level Flow
 
 ```text
                 ┌────────────────────┐
@@ -43,6 +88,10 @@ ARGOS implements a **closed-loop autonomous remediation model** for operational 
 ```
 
 Detect → Decide → Act → Verify
+
+
+This loop allows the system to react automatically to operational incidents
+while maintaining traceability through audit logging.
 
 ## Core Components
 
