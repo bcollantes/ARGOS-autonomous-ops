@@ -68,16 +68,43 @@ Future versions will explore integration with observability systems such as:
 
 ## Repository Structure
 
-argos/
-├── config/
-├── data/
+```text
+ARGOS-autonomous-ops
+│
+├── README.md
+├── requirements.txt
+├── pyproject.toml
+├── .gitignore
+│
 ├── docs/
+│ └── architecture.md
+│
+├── config/
+│ └── rules.yaml
+│
+├── data/
+│ └── sample_alert.json
+│
 ├── logs/
+│ └── .gitkeep
+│
 ├── scripts/
-├── src/
-│ └── argos/
+│ └── restart_service.sh
+│
 ├── tests/
-
+│ └── test_detector.py
+│
+└── src/
+└── argos/
+├── init.py
+├── main.py
+├── detector.py
+├── decision_engine.py
+├── action_engine.py
+├── verification.py
+├── audit.py
+└── models.py
+```
 
 The initial implementation is written in **Python** and focuses on simplicity and experimentation.
 
