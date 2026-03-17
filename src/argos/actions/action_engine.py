@@ -1,19 +1,16 @@
+import importlib
+
+
 def execute_action(incident):
 
-    action = incident.recommended_action
+    action_name = incident.recommended_action
 
-    print(f"[ACTION] Executing action: {action}")
+    try:
+        module = importlib.import_module(f"argos.actions.{action_name}")
+        result = module.run(incident)
 
-    if action == "restart_service":
-        print(f"Restarting service: {incident.target}")
-        result = True
-
-    elif action == "renew_certificate":
-        print("Renewing certificate...")
-        result = True
-
-    else:
-        print("Manual intervention required")
+    except ModuleNotFoundError:
+        print(f"[ACTION] Unknown action: {action_name}")
         result = False
 
     return result
