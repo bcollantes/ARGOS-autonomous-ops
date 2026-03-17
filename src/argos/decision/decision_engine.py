@@ -1,5 +1,6 @@
 from argos.knowledge.errors_catalog import ERRORS
 
+
 def decide_action(incident):
 
     error = ERRORS.get(incident.incident_type)
@@ -11,4 +12,4 @@ def decide_action(incident):
 
     print(f"[DECISION] Action decided: {incident.recommended_action}")
 
-    return incident
+    return incident, error
