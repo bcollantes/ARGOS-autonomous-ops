@@ -1,14 +1,11 @@
+from argos.knowledge.errors_catalog import ERRORS
+
 def decide_action(incident):
 
-    if incident.incident_type == "service_down":
-        incident.recommended_action = "restart_service"
+    error = ERRORS.get(incident.incident_type)
 
-    elif incident.incident_type == "high_error_rate":
-        incident.recommended_action = "restart_service"
-
-    elif incident.incident_type == "certificate_expiring":
-        incident.recommended_action = "renew_certificate"
-
+    if error:
+        incident.recommended_action = error["recommended_action"]
     else:
         incident.recommended_action = "manual_review"
 
