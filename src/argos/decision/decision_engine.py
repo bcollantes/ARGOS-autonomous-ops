@@ -1,22 +1,17 @@
-from pathlib import Path
+def decide_action(incident):
 
-import yaml
+    if incident.incident_type == "service_down":
+        incident.recommended_action = "restart_service"
 
-from argos.models import AlertEvent, ActionPlan
+    elif incident.incident_type == "high_error_rate":
+        incident.recommended_action = "restart_service"
 
+    elif incident.incident_type == "certificate_expiring":
+        incident.recommended_action = "renew_certificate"
 
-def decide_action(event: AlertEvent, rules_path: str = "config/rules.yaml") -> ActionPlan:
-    file_path = Path(rules_path)
+    else:
+        incident.recommended_action = "manual_review"
 
-    with file_path.open("r", encoding="utf-8") as f:
-        rules = yaml.safe_load(f)
+    print(f"[DECISION] Action decided: {incident.recommended_action}")
 
-    rule = rules["rules"].get(event.alert)
-
-    if not rule:
-        raise ValueError(f"No rule defined for alert type: {event.alert}")
-
-    return ActionPlan(
-        action=rule["action"],
-        verify=rule["verify"],
-    )
+    return incident

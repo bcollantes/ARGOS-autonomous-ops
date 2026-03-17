@@ -1,30 +1,19 @@
-import subprocess
+def execute_action(incident):
 
-from argos.models import AlertEvent, ActionPlan, ActionResult
+    action = incident.recommended_action
 
+    print(f"[ACTION] Executing action: {action}")
 
-def execute_action(plan: ActionPlan, event: AlertEvent, simulate: bool = True) -> ActionResult:
-    if simulate:
-        return ActionResult(
-            success=True,
-            message=f"[SIMULATED] Executed action '{plan.action}' for alert '{event.alert}' on host '{event.host}'",
-        )
+    if action == "restart_service":
+        print(f"Restarting service: {incident.target}")
+        result = True
 
-    script_path = f"scripts/{plan.action}.sh"
+    elif action == "renew_certificate":
+        print("Renewing certificate...")
+        result = True
 
-    try:
-        completed = subprocess.run(
-            ["bash", script_path],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        return ActionResult(
-            success=True,
-            message=completed.stdout.strip() or f"Executed {plan.action}",
-        )
-    except subprocess.CalledProcessError as exc:
-        return ActionResult(
-            success=False,
-            message=exc.stderr.strip() or str(exc),
-        )
+    else:
+        print("Manual intervention required")
+        result = False
+
+    return result
