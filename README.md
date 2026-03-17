@@ -1,37 +1,38 @@
 # ARGOS – Autonomous Operations Framework
 
-ARGOS is an experimental framework for **autonomous operations and incident remediation** in hybrid infrastructure environments.
+ARGOS is an experimental framework for autonomous operations and incident remediation in hybrid infrastructure environments.
 
-The project explores how operational systems can detect incidents, decide corrective actions and execute remediation automatically through a **closed-loop operational model**.
+The project explores how operational systems can detect incidents, decide corrective actions and execute remediation automatically through a closed-loop operational model.
 
-ARGOS is designed as part of the **AEGIS ecosystem**, where:
+ARGOS is designed as part of the AEGIS ecosystem, where:
 
 - **DAEDALUS** defines and generates infrastructure designs (LLD automation)
+
 - **AEGIS** governs identity, access and policy enforcement
+
 - **ARGOS** performs autonomous operational remediation
 
----
 ## Architecture Overview
 
-ARGOS implements a **closed-loop operational model** for autonomous remediation.
-
+ARGOS implements a closed-loop operational model for autonomous remediation.
 
 The system processes operational events and applies corrective actions automatically while maintaining auditability.
 
-Core components:
+## Core components
 
 - **Detector** – collects and normalizes operational events
 - **Decision Engine** – determines remediation actions based on rules
+- **Policy Engine** – evaluates whether actions can be executed
 - **Action Engine** – executes corrective actions
 - **Verification** – validates system recovery
 - **Audit Log** – records operational decisions and results
 
 ## Core Concept
 
-ARGOS implements a simple closed-loop model:
+ARGOS implements a closed-loop model:
+
 Detect → Decide → Act → Verify
 
-Typical flow:
 
 ```text
 Event / Alert
@@ -40,7 +41,13 @@ Event / Alert
 Detection Engine
 │
 ▼
+Context Builder
+│
+▼
 Decision Engine
+│
+▼
+Policy Engine
 │
 ▼
 Action Engine
@@ -51,37 +58,84 @@ Verification
 ▼
 Audit Log
 ```
-
 This model allows ARGOS to respond automatically to operational incidents such as:
 
-- Service failures
+- ervice failures
+
 - Network issues
+
 - Certificate lifecycle problems
+
 - Infrastructure anomalies
 
+---
+## Execution Pipeline
+
+Running **ARGOS**
+
+ARGOS can be executed as a modular pipeline simulating real operational environments.
+
+python -m argos.main --env=<environment>
+
+### Supported environments
+
+```text
+dev → development
+tst → testing / pre-production
+acc → acceptance / certification
+prd → production
+```
+---
+### Execution Modes by Environment
+Execution Modes by Environment
+
+```text
+dev → full autonomy (auto-execution)
+tst → confirmation required before execution
+acc → approval required (controlled execution)
+prd → strict approval required (policy-driven execution)
+```
+### Example
+
+python -m argos.main --env=prd
+
+```text
+[DETECTOR] Detected incident: [service_down] target=payments-api severity=high
+[CONTEXT] Built context: {'environment': 'prd', 'retry_count': 0}
+[MAIN] Running in environment: prd
+[DECISION] Action decided: restart_service
+[POLICY] Evaluating policy for env=prd
+[EXECUTION] PRD mode → approval required for restart_service
+Approve execution? (y/n): y
+Restarting service: payments-api
+[VERIFY] Incident resolved
+[AUDIT] Logging incident
+```
 ---
 
 ## Project Status
 
-ARGOS is currently in **early experimental stage (v0.1)**.
+ARGOS is currently in experimental stage (v0.1).
 
-The first goal is to implement a minimal autonomous remediation loop:
+### Current goals:
 
 - Event detection
+- Context enrichment
 - Rule-based decision engine
+- Policy-controlled execution
 - Scripted remediation actions
 - Verification checks
 - Incident logging
 
-Future versions will explore integration with observability systems such as:
+### Future exploration includes:
 
-- Prometheus
-- Alertmanager
-- Log pipelines
+- Prometheus / Alertmanager integration
+- Loki / Kafka event ingestion
+- Distributed tracing (Tempo)
+- Runbook automation
+- AI-assisted decision support
 
----
-
-## Repository Structure
+### Repository Structure
 
 ```text
 ARGOS-autonomous-ops
@@ -92,43 +146,43 @@ ARGOS-autonomous-ops
 ├── .gitignore
 │
 ├── docs/
-│ └── architecture.md
+│   └── architecture.md
 │
 ├── config/
-│ └── rules.yaml
+│   └── rules.yaml
 │
 ├── data/
-│ └── sample_alert.json
+│   └── sample_alert.json
 │
 ├── logs/
-│ └── .gitkeep
+│   └── .gitkeep
 │
 ├── scripts/
-│ └── restart_service.sh
+│   └── restart_service.sh
 │
 ├── tests/
-│ └── test_detector.py
+│   └── test_detector.py
 │
 └── src/
-└── argos/
-│ └── init.py
-│ └── main.py
-│ └── detector.py
-│ └── decision_engine.py
-│ └── action_engine.py
-│ └── verification.py
-│ └── audit.py
-│ └── models.py
+    └── argos/
+        ├── __init__.py
+        ├── main.py
+        ├── core/
+        ├── detector/
+        ├── context/
+        ├── decision/
+        ├── policy/
+        ├── actions/
+        ├── verification/
+        └── audit/
 ```
+The implementation is written in Python and focuses on simplicity, modularity and extensibility.
 
-The initial implementation is written in **Python** and focuses on simplicity and experimentation.
-
----
 
 ## Ecosystem
 
-ARGOS is part of the **AEGIS Architecture Ecosystem**. 
-https://aegis-identityfabric.com/ 
+ARGOS is part of the **AEGIS Architecture Ecosystem**.
+https://aegis-identityfabric.com/
 
 ## Ecosystem
 
@@ -148,27 +202,16 @@ Related repository:
 
 ## Vision
 
-The long-term goal of ARGOS is to explore **autonomous infrastructure operations**, where systems are capable of detecting anomalies and safely applying remediation actions under controlled policies.
+The long-term goal of ARGOS is to explore autonomous infrastructure operations, where systems are capable of:
 
-This research is aligned with emerging concepts such as:
+- detecting anomalies
+- reasoning about corrective actions
+- applying remediation safely
+- operating under controlled policies
+
+This aligns with emerging concepts such as:
 
 - AIOps
 - Self-healing infrastructure
 - Autonomous systems
 - Zero Trust operational governance
-
-## Project Status
-
-ARGOS is currently in **experimental stage (v0.1)**.
-
-Current goals:
-
-- implement a minimal autonomous remediation loop
-- integrate rule-based decision engine
-- validate operational verification mechanisms
-
-Future exploration includes:
-
-- Prometheus / Alertmanager integration
-- AI-assisted decision support
-- integration with AEGIS Identity Fabric
