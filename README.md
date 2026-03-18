@@ -147,6 +147,7 @@ ARGOS-autonomous-ops
 │
 ├── docs/
 │   └── architecture.md
+│   └── argos_executive_summary.md
 │
 ├── config/
 │   └── rules.yaml
@@ -174,10 +175,57 @@ ARGOS-autonomous-ops
         ├── policy/
         ├── actions/
         ├── verification/
-        └── audit/
+        ├── audit/
+        └── runbook/
 ```
 The implementation is written in Python and focuses on simplicity, modularity and extensibility.
 
+## Vision
+
+The long-term goal of ARGOS is to explore autonomous infrastructure operations, where systems are capable of:
+
+- detecting anomalies
+- reasoning about corrective actions
+- applying remediation safely
+- operating under controlled policies
+
+This aligns with emerging concepts such as:
+
+- AIOps
+- Self-healing infrastructure
+- Autonomous systems
+- Zero Trust operational governance
+
+---
+## Runbook Classification Model
+
+- **A1** — Low criticality operational procedures
+- **A2** — Medium criticality service recovery procedures
+- **A3** — High availability remediation workflows
+- **A4** — Critical operational runbooks requiring functional and capacity validation
+
+### A4 additional controls
+
+- strict approval policy
+- enhanced auditability
+- mandatory capacity validation
+- k6-based endpoint stress verification
+
+```text
+Event
+↓
+Decision
+↓
+Policy
+↓
+Runbook
+↓
+Functional Verification
+↓
+Capacity Validation (k6)
+↓
+Audit
+```
 
 ## Ecosystem
 
@@ -197,21 +245,3 @@ ARGOS is part of the **AEGIS Architecture Ecosystem**.
 Related repository:
 
 • https://github.com/bcollantes/AEGIS-identityfabric
-
----
-
-## Vision
-
-The long-term goal of ARGOS is to explore autonomous infrastructure operations, where systems are capable of:
-
-- detecting anomalies
-- reasoning about corrective actions
-- applying remediation safely
-- operating under controlled policies
-
-This aligns with emerging concepts such as:
-
-- AIOps
-- Self-healing infrastructure
-- Autonomous systems
-- Zero Trust operational governance
