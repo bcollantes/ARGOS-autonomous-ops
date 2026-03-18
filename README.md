@@ -241,7 +241,3 @@ ARGOS is part of the **AEGIS Architecture Ecosystem**.
 | AEGIS | Identity Control Plane |https://github.com/bcollantes/AEGIS-identityfabric |
 | ARGOS | Autonomous Operations ||                                   
 | DAEDALUS | Infrastructure Architecture Automation ||
-
-Related repository:
-
-• https://github.com/bcollantes/AEGIS-identityfabric
