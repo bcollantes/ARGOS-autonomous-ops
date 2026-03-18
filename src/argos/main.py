@@ -1,5 +1,6 @@
 import argparse
 
+from argos.runbooks.runbook_engine import execute_runbook
 from argos.detector.detect_events import detect_event
 from argos.detector.detect_events import detect_event
 from argos.context.context_builder import build_context
@@ -38,7 +39,7 @@ def main():
         result = False
 
     else:
-        result = handle_execution_mode(incident, env)
+        result = execute_runbook(incident, env)
 
     verify(incident, result)
 
